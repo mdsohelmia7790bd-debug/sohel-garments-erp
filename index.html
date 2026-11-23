@@ -654,8 +654,8 @@ form.addEventListener('submit', async (event) => {
   const email = document.getElementById('email').value.trim();
   const password = document.getElementById('password').value;
   const { data, error } = await supabase.auth.signInWithPassword({ email, password });
-  if (error) {
-    loginMessage.textContent = 'লগইন হয়নি: ইমেইল অথবা পাসওয়ার্ড যাচাই করুন।';
+ 
+    loginMessage.textContent = 'লগইন হয়নি: ' + error.message;
     loginMessage.style.color = '#c62828';
     loginButton.disabled = false;
     loginButton.textContent = 'লগইন করুন';
