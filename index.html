@@ -1,0 +1,681 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SOHEL GARMENTS ERP | Login</title>
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:20px;font-family:Arial,sans-serif;background:linear-gradient(135deg,#102a43,#176b87)}
+.card{width:100%;max-width:410px;background:#fff;border-radius:18px;padding:30px 26px;box-shadow:0 18px 55px #001a2b55}
+.brand{text-align:center;margin-bottom:25px}.logo{width:64px;height:64px;margin:0 auto 12px;border-radius:16px;background:#e7f4f7;color:#176b87;display:grid;place-items:center;font-size:25px;font-weight:800}
+h1{font-size:22px;color:#102a43;margin:0 0 7px}.sub{font-size:14px;color:#687985;margin:0}
+label{display:block;font-size:14px;font-weight:700;color:#263746;margin:17px 0 7px}
+input{width:100%;padding:13px 14px;border:1px solid #cbd5dc;border-radius:9px;font-size:16px;outline:none}
+input:focus,select:focus{border-color:#176b87;box-shadow:0 0 0 3px #176b871c}
+select{width:100%;padding:13px 14px;border:1px solid #cbd5dc;border-radius:9px;font-size:16px;background:#fff}
+button{width:100%;border:0;border-radius:9px;padding:14px;margin-top:22px;background:#176b87;color:#fff;font-size:16px;font-weight:700;cursor:pointer}
+button:disabled{opacity:.65;cursor:wait}#message{font-size:14px;line-height:1.5;margin-top:15px;text-align:center;min-height:20px}
+.hint{font-size:12px;color:#84919a;text-align:center;margin-top:22px}
+</style>
+<style>
+.moduleGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.moduleBtn{margin:0;min-height:76px;padding:12px 8px;display:flex;flex-direction:column;gap:5px;justify-content:center}
+.moduleBtn small{font-size:11px;font-weight:400}
+.panel{margin-top:20px;padding:18px;background:#f8fbfc;border:1px solid #dce8ed;border-radius:12px}
+.panel h2{font-size:19px;color:#102a43;margin:0 0 14px}
+.formGrid,.filterGrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.formGrid label,.filterGrid label{margin:8px 0 5px}
+.formGrid input,.formGrid select,.filterGrid input,.filterGrid select{padding:10px;font-size:14px}
+.formGrid button,.filterGrid button{margin-top:18px}
+.tableWrap{overflow:auto;margin-top:16px}
+table{border-collapse:collapse;width:100%;min-width:680px;background:#fff;font-size:12px}
+th,td{border:1px solid #dce5e9;padding:8px;text-align:center;white-space:nowrap}
+th{background:#e7f1f4;color:#17384b}
+.status{font-size:13px;min-height:20px;margin-top:10px;color:#176b87}
+.secondary{background:#667782}
+.backBtn{margin-top:15px}
+.smallBtn{width:auto;margin:2px;padding:7px 9px;font-size:11px}
+.snapshot{font-size:13px;font-weight:bold;margin-top:10px;color:#176b87}
+@media(max-width:480px){.card{padding:20px 14px}.formGrid,.filterGrid{grid-template-columns:1fr}.moduleGrid{gap:7px}.moduleBtn{font-size:13px}.panel{padding:12px}}
+</style>
+
+
+<style>
+.liveDash{margin:16px 0;padding:16px;border:1px solid #cfe2e8;border-radius:12px;background:#f2fafb;text-align:left}
+.liveDash h2{font-size:18px;color:#102a43;margin:0 0 6px}.liveDash .liveMeta{font-size:12px;color:#607783;margin-bottom:12px}
+.liveKpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+.liveKpi{background:#fff;border:1px solid #dce8ed;border-radius:9px;padding:12px;text-align:center}
+.liveKpi b{display:block;font-size:22px;color:#176b87}.liveKpi span{font-size:12px;color:#526773}
+.livePulse{display:inline-block;width:8px;height:8px;border-radius:50%;background:#18a058;margin-right:6px}
+@media(min-width:600px){.liveKpis{grid-template-columns:repeat(4,minmax(0,1fr))}}
+</style>
+
+</head>
+<body><main class="card"><section id="loginView">
+<header class="brand"><div class="logo">SG</div><h1>SOHEL GARMENTS ERP</h1><p class="sub">আপনার অ্যাকাউন্ট দিয়ে লগইন করুন</p></header>
+<form id="loginForm">
+<label for="email">Login ID / ইমেইল</label><input id="email" type="email" autocomplete="username" placeholder="আপনার ইমেইল লিখুন" required>
+<label for="password">Password / পাসওয়ার্ড</label><input id="password" type="password" autocomplete="current-password" placeholder="পাসওয়ার্ড লিখুন" required>
+<button id="loginButton" type="submit">লগইন করুন</button><div id="message" role="status"></div>
+</form><p class="hint">শুধুমাত্র অনুমোদিত ব্যবহারকারীদের জন্য</p></section>
+<section id="dashboardView" style="display:none">
+  <header class="brand"><div class="logo">SG</div><h1>SOHEL GARMENTS ERP</h1><p class="sub" id="welcomeText"></p></header>
+  <div class="moduleGrid">
+    <button class="moduleBtn" id="openEkl"><b>EKL Management</b><small>EKL তথ্য পরিচালনা</small></button>
+    <button class="moduleBtn" id="openInput"><b>Daily Input</b><small>দৈনিক ইনপুট এন্ট্রি</small></button>
+    <button class="moduleBtn" id="openOutput"><b>Daily Output</b><small>দৈনিক আউটপুট এন্ট্রি</small></button>
+    <button class="moduleBtn" id="openWip"><b>WIP Report</b><small>লাইনভিত্তিক WIP</small></button>
+    <button class="moduleBtn" id="openFinishing"><b>Finishing Received</b><small>ফিনিশিং রিসিভ এন্ট্রি</small></button>
+    <button class="moduleBtn" id="openReports"><b>Reports</b><small>তারিখ, EKL, PO ও Colour</small></button>
+    <button class="moduleBtn" id="openLineInput"><b>Line Wise Input</b><small>লাইনভিত্তিক ইনপুট আপডেট</small></button>
+    <button class="moduleBtn" id="openUsers"><b>User Management</b><small>ব্যবহারকারীর তথ্য</small></button>
+  </div>
+
+  <section id="liveDashboard" class="liveDash" style="display:none">
+    <h2>লাইভ প্রোডাকশন আপডেট</h2>
+    <div class="liveMeta"><span class="livePulse"></span><span id="liveConnection">ডেটা লোড হচ্ছে...</span> • <span id="liveUpdated">—</span></div>
+    <div class="liveKpis">
+      <div class="liveKpi"><b id="liveInputTotal">0</b><span>মোট ইনপুট (pcs)</span></div>
+      <div class="liveKpi"><b id="liveOutputTotal">0</b><span>মোট আউটপুট (pcs)</span></div>
+      <div class="liveKpi"><b id="liveWipTotal">0</b><span>বর্তমান WIP (pcs)</span></div>
+      <div class="liveKpi"><b id="liveFinTotal">0</b><span>মোট ফিনিশিং রিসিভ (pcs)</span></div>
+    </div>
+    <p style="font-size:11px;color:#687985;margin:10px 0 0">নতুন এন্ট্রি সাধারণত ১৫ সেকেন্ডের মধ্যে আপডেট হবে।</p>
+  </section>
+  <section class="panel" id="inputPanel" style="display:none">
+    <h2>Daily Input Update</h2>
+    <form id="inputForm">
+      <input type="hidden" id="inputRowId">
+      <div class="formGrid">
+        <div><label for="inputDate">Date / তারিখ</label><input id="inputDate" type="date" required></div>
+        <div><label for="inputEkl">EKL</label><select id="inputEkl" required><option value="">EKL নির্বাচন করুন</option></select></div>
+        <div><label for="inputLine">Sewing Line</label><select id="inputLine" required><option value="">লাইন নির্বাচন করুন</option></select></div>
+        <div><label for="inputQty">Daily Input / আজকের ইনপুট</label><input id="inputQty" type="number" min="1" step="1" required placeholder="পরিমাণ লিখুন"></div>
+        <button id="inputSave" type="submit">ইনপুট সংরক্ষণ করুন</button>
+      </div>
+    </form>
+    <div id="inputStatus" role="status" style="font-size:13px;margin-top:10px;min-height:18px"></div>
+    <div class="tableWrap"><table><thead><tr><th>Date</th><th>EKL</th><th>PO</th><th>Color</th><th>Line</th><th>Daily Input</th><th>Action</th></tr></thead><tbody id="inputRows"><tr><td colspan="7">লোড হচ্ছে...</td></tr></tbody></table></div>
+    <button class="secondary" id="backFromInput" type="button">Dashboard-এ ফিরে যান</button>
+  </section>
+  <section class="panel" id="eklPanel" style="display:none">
+    <h2>EKL Management</h2>
+    <form id="eklForm">
+      <input type="hidden" id="eklRowId">
+      <div class="formGrid">
+        <div><label for="eklCode">EKL</label><input id="eklCode" required placeholder="EKL নম্বর"></div>
+        <div><label for="eklPo">PO</label><input id="eklPo" required placeholder="PO নম্বর"></div>
+        <div><label for="eklColor">Color</label><input id="eklColor" required placeholder="Color"></div>
+        <div><label for="eklQty">PO/QTY</label><input id="eklQty" type="number" min="1" step="1" required placeholder="PO Quantity"></div>
+        <button id="eklSave" type="submit">EKL সংরক্ষণ করুন</button>
+      </div>
+    </form>
+    <div id="eklStatus" role="status"></div>
+    <div class="tableWrap"><table><thead><tr><th>EKL</th><th>PO</th><th>Color</th><th>PO/QTY</th><th>Action</th></tr></thead><tbody id="eklRows"><tr><td colspan="5">লোড হচ্ছে...</td></tr></tbody></table></div>
+    <button class="secondary" id="backDashboard" type="button">Dashboard-এ ফিরে যান</button>
+  </section>
+
+  <section class="panel" id="outputPanel" style="display:none">
+    <h2>Daily Output Update</h2>
+    <form id="outputForm"><input type="hidden" id="outputRowId"><div class="formGrid">
+      <div><label for="outputDate">Date / তারিখ</label><input id="outputDate" type="date" required></div>
+      <div><label for="outputEkl">EKL</label><select id="outputEkl" required></select></div>
+      <div><label for="outputLine">Sewing Line</label><select id="outputLine" required></select></div>
+      <div><label for="outputQty">Daily Output</label><input id="outputQty" type="number" min="1" step="1" required></div>
+      <button id="outputSave" type="submit">আউটপুট সংরক্ষণ করুন</button>
+    </div></form>
+    <div id="outputStatus" class="status"></div>
+    <div id="outputSnapshot" class="snapshot"></div>
+    <div class="tableWrap"><table><thead><tr><th>Date</th><th>EKL</th><th>PO</th><th>Color</th><th>Line</th><th>Daily Output</th><th>Action</th></tr></thead><tbody id="outputRows"></tbody></table></div>
+    <button class="secondary backBtn" type="button">Dashboard-এ ফিরে যান</button>
+  </section>
+
+  <section class="panel" id="finishingPanel" style="display:none">
+    <h2>Finishing Received Update</h2>
+    <form id="finishingForm"><input type="hidden" id="finRowId"><div class="formGrid">
+      <div><label for="finDate">Date / তারিখ</label><input id="finDate" type="date" required></div>
+      <div><label for="finEkl">EKL</label><select id="finEkl" required></select></div>
+      <div><label for="finLine">Sewing Line</label><select id="finLine" required></select></div>
+      <div><label for="finQty">Daily Finishing Received</label><input id="finQty" type="number" min="1" step="1" required></div>
+      <button id="finSave" type="submit">ফিনিশিং রিসিভ সংরক্ষণ করুন</button>
+    </div></form>
+    <div id="finStatus" class="status"></div>
+    <div class="tableWrap"><table><thead><tr><th>Date</th><th>EKL</th><th>PO</th><th>Color</th><th>Line</th><th>Daily Received</th><th>Action</th></tr></thead><tbody id="finRows"></tbody></table></div>
+    <button class="secondary backBtn" type="button">Dashboard-এ ফিরে যান</button>
+  </section>
+
+  <section class="panel" id="wipPanel" style="display:none">
+    <h2>WIP Report (EKL + Sewing Line Wise)</h2>
+    <div class="filterGrid">
+      <div><label for="wipEkl">EKL</label><select id="wipEkl"><option value="">সব EKL</option></select></div>
+      <div><label for="wipLine">Line</label><select id="wipLine"><option value="">সব Line</option></select></div>
+      <button id="refreshWip" type="button">রিপোর্ট দেখুন</button>
+    </div>
+    <div id="wipStatus" class="status"></div>
+    <div class="tableWrap"><table><thead><tr><th>EKL</th><th>PO</th><th>Color</th><th>Line</th><th>Total Input</th><th>Total Output</th><th>WIP</th><th>Total Finishing</th><th>Received Balance</th></tr></thead><tbody id="wipRows"></tbody></table></div>
+    <button class="secondary backBtn" type="button">Dashboard-এ ফিরে যান</button>
+  </section>
+
+  <section class="panel" id="reportsPanel" style="display:none">
+    <h2>Production Reports</h2>
+    <div class="filterGrid">
+      <div><label for="reportFrom">From Date</label><input id="reportFrom" type="date"></div>
+      <div><label for="reportTo">To Date</label><input id="reportTo" type="date"></div>
+      <div><label for="reportEkl">EKL</label><select id="reportEkl"><option value="">সব EKL</option></select></div>
+      <div><label for="reportLine">Line</label><select id="reportLine"><option value="">সব Line</option></select></div>
+      <div><label for="reportPo">PO</label><input id="reportPo" placeholder="PO নম্বর"></div>
+      <div><label for="reportColor">Colour</label><input id="reportColor" placeholder="Colour"></div>
+      <button id="runReport" type="button">রিপোর্ট তৈরি করুন</button>
+      <button id="exportReport" type="button" class="secondary">Excel/CSV Download</button>
+    </div>
+    <div id="reportStatus" class="status"></div>
+    <div class="tableWrap"><table><thead><tr><th>Date</th><th>Type</th><th>EKL</th><th>PO</th><th>Color</th><th>Line</th><th>Quantity</th></tr></thead><tbody id="reportRows"></tbody></table></div>
+    <button class="secondary backBtn" type="button">Dashboard-এ ফিরে যান</button>
+  </section>
+
+  <section class="panel" id="lineInputPanel" style="display:none">
+    <h2>Line Wise Input Update</h2>
+    <div class="filterGrid"><div><label for="lineInputDate">Date</label><input id="lineInputDate" type="date"></div><button id="runLineInput" type="button">দেখুন</button></div>
+    <div id="lineInputStatus" class="status"></div>
+    <div class="tableWrap"><table><thead><tr><th>Line</th><th>EKL</th><th>PO</th><th>Color</th><th>Daily Input</th><th>Total Input</th></tr></thead><tbody id="lineInputRows"></tbody></table></div>
+    <button class="secondary backBtn" type="button">Dashboard-এ ফিরে যান</button>
+  </section>
+
+  <section class="panel" id="usersPanel" style="display:none">
+    <h2>User Management</h2>
+    <p>নিরাপত্তার কারণে নতুন Auth account তৈরি করতে Supabase Authentication থেকে ব্যবহারকারী যোগ করতে হবে। এই তালিকায় ERP profile দেখা যাবে।</p>
+    <div id="usersStatus" class="status"></div>
+    <div class="tableWrap"><table><thead><tr><th>Name</th><th>Role</th><th>User ID</th></tr></thead><tbody id="userRows"></tbody></table></div>
+    <button class="secondary backBtn" type="button">Dashboard-এ ফিরে যান</button>
+  </section>
+
+  <p id="adminNote" style="display:none;text-align:center;color:#176b87;font-size:13px;margin-top:16px">Admin Account</p>
+  <button id="logoutButton" type="button">লগআউট</button>
+  <p class="hint">SOHEL GARMENTS ERP • Supabase Database Connected</p>
+</section></main>
+<script type="module">
+import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm';
+const SUPABASE_URL = 'https://yujbkipxyolbliytmddc.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_rEOT36jzUeQbxyFZrfflUw_dAoyKnp9';
+const supabase = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+const form = document.getElementById('loginForm');
+const loginButton = document.getElementById('loginButton');
+const loginMessage = document.getElementById('message');
+let currentRole = 'user';
+
+document.getElementById('logoutButton').addEventListener('click', async () => {
+  if(liveRefreshTimer) clearInterval(liveRefreshTimer);
+  if(liveChannel) await supabase.removeChannel(liveChannel);
+  await supabase.auth.signOut();
+  location.reload();
+});
+document.getElementById('openEkl').addEventListener('click', async () => {
+  document.getElementById('eklPanel').style.display = 'block';
+  document.getElementById('adminNote').style.display = currentRole === 'admin' ? 'block' : 'none';
+  setEklFormPermission();
+  await loadEklRecords();
+});
+document.getElementById('backDashboard').addEventListener('click', () => {
+  document.getElementById('eklPanel').style.display = 'none';
+});
+function eklStatus(text, color='#176b87') {
+  const el = document.getElementById('eklStatus');
+  el.textContent = text;
+  el.style.color = color;
+}
+function setEklFormPermission() {
+  const isAdmin = currentRole === 'admin';
+  document.getElementById('eklForm').style.display = 'block';
+}
+async function loadEklRecords() {
+  const body = document.getElementById('eklRows');
+  body.innerHTML = '<tr><td colspan="5">লোড হচ্ছে...</td></tr>';
+  const { data, error } = await supabase
+    .from('ekl_records')
+    .select('id, ekl, po, color, po_qty')
+    .order('created_at', { ascending: false });
+  if (error) {
+    body.innerHTML = '<tr><td colspan="5">তথ্য লোড হয়নি।</td></tr>';
+    eklStatus('ডাটাবেস থেকে তথ্য আনা যায়নি: ' + error.message, '#c62828');
+    return;
+  }
+  if (!data || data.length === 0) {
+    body.innerHTML = '<tr><td colspan="5">এখনো কোনো EKL যোগ করা হয়নি।</td></tr>';
+    eklStatus('কোনো EKL রেকর্ড নেই।');
+    return;
+  }
+  body.innerHTML = '';
+  data.forEach(row => {
+    const tr = document.createElement('tr');
+    [row.ekl, row.po, row.color, row.po_qty].forEach(value => {
+      const td = document.createElement('td');
+      td.textContent = value ?? '';
+      tr.appendChild(td);
+    });
+    const action = document.createElement('td');
+    const edit = document.createElement('button');
+    edit.className = 'smallBtn'; edit.textContent = 'Edit';
+    edit.addEventListener('click', () => {
+      document.getElementById('eklRowId').value = row.id;
+      document.getElementById('eklCode').value = row.ekl || '';
+      document.getElementById('eklPo').value = row.po || '';
+      document.getElementById('eklColor').value = row.color || '';
+      document.getElementById('eklQty').value = row.po_qty ?? '';
+      document.getElementById('eklSave').textContent = 'পরিবর্তন সংরক্ষণ করুন';
+      document.getElementById('eklForm').scrollIntoView({behavior:'smooth'});
+    });
+    action.append(edit);
+    if (currentRole === 'admin') {
+      const del = document.createElement('button'); del.className = 'smallBtn secondary'; del.textContent = 'Delete';
+      del.addEventListener('click', async () => {
+        if (!confirm('এই EKL রেকর্ডটি মুছে ফেলবেন?')) return;
+        const { error: deleteError } = await supabase.from('ekl_records').delete().eq('id', row.id);
+        if (deleteError) eklStatus('মুছতে সমস্যা: ' + deleteError.message, '#c62828');
+        else { eklStatus('EKL রেকর্ড মুছে ফেলা হয়েছে।'); await loadEklRecords(); }
+      });
+      action.append(del);
+    }
+    tr.appendChild(action);
+    body.appendChild(tr);
+  });
+  eklStatus(`${data.length}টি EKL রেকর্ড পাওয়া গেছে।`);
+}
+document.getElementById('eklForm').addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const id = document.getElementById('eklRowId').value;
+  const record = {
+    ekl: document.getElementById('eklCode').value.trim(),
+    po: document.getElementById('eklPo').value.trim(),
+    color: document.getElementById('eklColor').value.trim(),
+    po_qty: Number(document.getElementById('eklQty').value)
+  };
+  const saveButton = document.getElementById('eklSave');
+  saveButton.disabled = true;
+  const result = id
+    ? await supabase.from('ekl_records').update(record).eq('id', id)
+    : await supabase.from('ekl_records').insert(record);
+  saveButton.disabled = false;
+  if (result.error) {
+    eklStatus('সংরক্ষণ হয়নি: ' + result.error.message, '#c62828');
+    return;
+  }
+  eklStatus(id ? 'EKL তথ্য আপডেট হয়েছে।' : 'নতুন EKL সংরক্ষণ হয়েছে।');
+  document.getElementById('eklForm').reset();
+  document.getElementById('eklRowId').value = '';
+  saveButton.textContent = 'EKL সংরক্ষণ করুন';
+  await loadEklRecords();
+});
+
+const todayLocal = () => {
+  const d = new Date();
+  const local = new Date(d.getTime() - d.getTimezoneOffset() * 60000);
+  return local.toISOString().slice(0, 10);
+};
+document.getElementById('inputDate').value = todayLocal();
+
+document.getElementById('openInput').addEventListener('click', async () => {
+  document.getElementById('eklPanel').style.display = 'none';
+  document.getElementById('inputPanel').style.display = 'block';
+  await loadInputOptions();
+  await loadInputHistory();
+});
+document.getElementById('backFromInput').addEventListener('click', () => {
+  document.getElementById('inputPanel').style.display = 'none';
+});
+function inputStatus(text, color='#176b87') {
+  const el = document.getElementById('inputStatus');
+  el.textContent = text;
+  el.style.color = color;
+}
+async function loadInputOptions() {
+  const eklSelect = document.getElementById('inputEkl');
+  const lineSelect = document.getElementById('inputLine');
+  eklSelect.innerHTML = '<option value="">EKL নির্বাচন করুন</option>';
+  lineSelect.innerHTML = '<option value="">লাইন নির্বাচন করুন</option>';
+  const [{data: ekls, error: eklError}, {data: lines, error: lineError}] = await Promise.all([
+    supabase.from('ekl_records').select('id, ekl, po, color').order('ekl'),
+    supabase.from('sewing_lines').select('id, line_name').order('id')
+  ]);
+  if (eklError || lineError) {
+    inputStatus('EKL বা Line তালিকা লোড হয়নি। ' + (eklError?.message || lineError?.message), '#c62828');
+    return;
+  }
+  (ekls || []).forEach(row => {
+    const option = document.createElement('option');
+    option.value = row.id;
+    option.textContent = `${row.ekl} | ${row.po} | ${row.color}`;
+    eklSelect.appendChild(option);
+  });
+  (lines || []).forEach(row => {
+    const option = document.createElement('option');
+    option.value = row.id;
+    option.textContent = row.line_name;
+    lineSelect.appendChild(option);
+  });
+  if (!ekls?.length) inputStatus('আগে EKL Management থেকে EKL যোগ করুন।', '#a15c00');
+  else inputStatus('EKL ও Sewing Line নির্বাচন করে আজকের ইনপুট লিখুন।');
+}
+async function loadInputHistory() {
+  const body = document.getElementById('inputRows');
+  body.innerHTML = '<tr><td colspan="7">লোড হচ্ছে...</td></tr>';
+  const [{data: entries, error}, {data: ekls}, {data: lines}] = await Promise.all([
+    supabase.from('production_entries')
+      .select('id, entry_date, ekl_id, line_id, quantity, entry_type')
+      .eq('entry_type', 'Input').order('entry_date', {ascending:false}).limit(100),
+    supabase.from('ekl_records').select('id, ekl, po, color'),
+    supabase.from('sewing_lines').select('id, line_name')
+  ]);
+  if (error) {
+    body.innerHTML = '<tr><td colspan="7">রেকর্ড লোড হয়নি।</td></tr>';
+    inputStatus('ইনপুট রেকর্ড আনা যায়নি: ' + error.message, '#c62828');
+    return;
+  }
+  const eklMap = new Map((ekls || []).map(x => [String(x.id), x]));
+  const lineMap = new Map((lines || []).map(x => [String(x.id), x.line_name]));
+  if (!entries?.length) {
+    body.innerHTML = '<tr><td colspan="7">এখনো কোনো ইনপুট এন্ট্রি নেই।</td></tr>';
+    return;
+  }
+  body.innerHTML = '';
+  entries.forEach(row => {
+    const e = eklMap.get(String(row.ekl_id)) || {};
+    const values = [row.entry_date, e.ekl || '', e.po || '', e.color || '',
+      lineMap.get(String(row.line_id)) || '', row.quantity];
+    const tr = document.createElement('tr');
+    values.forEach(value => {
+      const td = document.createElement('td'); td.textContent = value ?? ''; tr.appendChild(td);
+    });
+    const action=document.createElement('td'); const edit=document.createElement('button'); edit.className='smallBtn'; edit.textContent='Edit';
+    edit.onclick=()=>{inputRowId.value=row.id;inputDate.value=row.entry_date;inputEkl.value=row.ekl_id;inputLine.value=row.line_id;inputQty.value=row.quantity;inputSave.textContent='পরিবর্তন সংরক্ষণ করুন';inputForm.scrollIntoView({behavior:'smooth'});};
+    action.appendChild(edit); if(currentRole==='admin'){const del=document.createElement('button');del.className='smallBtn secondary';del.textContent='Delete';del.onclick=async()=>{if(!confirm('এই ইনপুট মুছবেন?'))return;const {error}=await supabase.from('production_entries').delete().eq('id',row.id);if(error)inputStatus(error.message,'#c62828');else loadInputHistory();};action.appendChild(del);} tr.appendChild(action); body.appendChild(tr);
+  });
+  inputStatus(`সর্বশেষ ${entries.length}টি ইনপুট এন্ট্রি দেখানো হচ্ছে।`);
+}
+document.getElementById('inputForm').addEventListener('submit', async (event) => {
+  event.preventDefault();
+  const record = {
+    entry_date: document.getElementById('inputDate').value,
+    ekl_id: Number(document.getElementById('inputEkl').value),
+    line_id: Number(document.getElementById('inputLine').value),
+    entry_type: 'Input',
+    quantity: Number(document.getElementById('inputQty').value)
+  };
+  if (!record.entry_date || !record.ekl_id || !record.line_id || !Number.isInteger(record.quantity) || record.quantity < 1) {
+    inputStatus('তারিখ, EKL, Line এবং সঠিক পরিমাণ দিন।', '#c62828');
+    return;
+  }
+  const save = document.getElementById('inputSave');
+  save.disabled = true;
+  save.textContent = 'সংরক্ষণ হচ্ছে...';
+  const rowId=document.getElementById('inputRowId').value;
+  const result = rowId ? await supabase.from('production_entries').update(record).eq('id',rowId) : await supabase.from('production_entries').insert(record);
+  const {error}=result;
+  save.disabled = false;
+  save.textContent = 'ইনপুট সংরক্ষণ করুন';
+  if (error) {
+    inputStatus('সংরক্ষণ হয়নি: ' + error.message, '#c62828');
+    return;
+  }
+  inputStatus('আজকের ইনপুট সফলভাবে Supabase-এ সংরক্ষণ হয়েছে।', '#167044');
+  document.getElementById('inputQty').value = ''; document.getElementById('inputRowId').value=''; save.textContent='ইনপুট সংরক্ষণ করুন';
+  await loadInputHistory();
+});
+
+
+const panelIds = ['inputPanel','eklPanel','outputPanel','finishingPanel','wipPanel','reportsPanel','lineInputPanel','usersPanel'];
+function showPanel(id){
+  panelIds.forEach(pid=>document.getElementById(pid).style.display = pid===id?'block':'none');
+  document.getElementById('adminNote').style.display = currentRole==='admin'?'block':'none';
+  document.getElementById('logoutButton').style.display = 'block';
+  if(id) document.getElementById(id).scrollIntoView({behavior:'smooth',block:'start'});
+}
+document.querySelectorAll('.backBtn').forEach(b=>b.addEventListener('click',()=>showPanel('')));
+const setStatus=(id,msg,color='#176b87')=>{const e=document.getElementById(id);e.textContent=msg;e.style.color=color;};
+
+let liveRefreshTimer=null;
+let liveChannel=null;
+let liveRefreshBusy=false;
+async function refreshLiveDashboard(){
+  if(currentRole!=='admin'||document.getElementById('dashboardView').style.display==='none'||liveRefreshBusy)return;
+  liveRefreshBusy=true;
+  try{
+    const [{data:p,error:pe},{data:f,error:fe}]=await Promise.all([
+      supabase.from('production_entries').select('entry_type,quantity'),
+      supabase.from('finishing_received').select('quantity')
+    ]);
+    if(pe||fe) throw new Error(pe?.message||fe?.message);
+    const input=(p||[]).filter(x=>x.entry_type==='Input').reduce((a,x)=>a+Number(x.quantity||0),0);
+    const output=(p||[]).filter(x=>x.entry_type==='Output').reduce((a,x)=>a+Number(x.quantity||0),0);
+    const finishing=(f||[]).reduce((a,x)=>a+Number(x.quantity||0),0);
+    document.getElementById('liveInputTotal').textContent=input.toLocaleString('en-US');
+    document.getElementById('liveOutputTotal').textContent=output.toLocaleString('en-US');
+    document.getElementById('liveWipTotal').textContent=(input-output).toLocaleString('en-US');
+    document.getElementById('liveFinTotal').textContent=finishing.toLocaleString('en-US');
+    document.getElementById('liveConnection').textContent='সংযুক্ত';
+    document.getElementById('liveUpdated').textContent='সর্বশেষ আপডেট: '+new Date().toLocaleTimeString('bn-BD');
+  }catch(err){
+    document.getElementById('liveConnection').textContent='ডেটা আপডেট হয়নি: '+err.message;
+  }finally{liveRefreshBusy=false;}
+}
+function startLiveDashboard(){
+  document.getElementById('liveDashboard').style.display=currentRole==='admin'?'block':'none';
+  if(currentRole!=='admin')return;
+  refreshLiveDashboard();
+  if(liveRefreshTimer)clearInterval(liveRefreshTimer);
+  liveRefreshTimer=setInterval(refreshLiveDashboard,15000);
+  if(liveChannel)supabase.removeChannel(liveChannel);
+  liveChannel=supabase.channel('sohel-erp-live-dashboard')
+    .on('postgres_changes',{event:'*',schema:'public',table:'production_entries'},()=>refreshLiveDashboard())
+    .on('postgres_changes',{event:'*',schema:'public',table:'finishing_received'},()=>refreshLiveDashboard())
+    .subscribe();
+}
+
+const getOptions=async (eklId,lineId, includeAll=false)=>{
+  const [{data:ekls,error:e1},{data:lines,error:e2}]=await Promise.all([
+    supabase.from('ekl_records').select('id,ekl,po,color').order('ekl'),
+    supabase.from('sewing_lines').select('id,line_name').order('id')
+  ]);
+  if(e1||e2) throw new Error(e1?.message||e2?.message);
+  const es=document.getElementById(eklId), ls=document.getElementById(lineId);
+  if(es) es.innerHTML=(includeAll?'<option value="">সব EKL</option>':'<option value="">EKL নির্বাচন করুন</option>')+(ekls||[]).map(x=>`<option value="${x.id}">${esc(x.ekl)} | ${esc(x.po)} | ${esc(x.color)}</option>`).join('');
+  if(ls) ls.innerHTML=(includeAll?'<option value="">সব Line</option>':'<option value="">লাইন নির্বাচন করুন</option>')+(lines||[]).map(x=>`<option value="${x.id}">${esc(x.line_name)}</option>`).join('');
+  return {ekls:ekls||[],lines:lines||[]};
+};
+function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+async function totals(eklId,lineId){
+  const [{data:p,error:pe},{data:f,error:fe}]=await Promise.all([
+    supabase.from('production_entries').select('entry_type,quantity').eq('ekl_id',eklId).eq('line_id',lineId),
+    supabase.from('finishing_received').select('quantity').eq('ekl_id',eklId).eq('line_id',lineId)
+  ]);
+  if(pe||fe) throw new Error(pe?.message||fe?.message);
+  const ti=(p||[]).filter(x=>x.entry_type==='Input').reduce((a,x)=>a+Number(x.quantity),0);
+  const to=(p||[]).filter(x=>x.entry_type==='Output').reduce((a,x)=>a+Number(x.quantity),0);
+  const tf=(f||[]).reduce((a,x)=>a+Number(x.quantity),0);
+  return {ti,to,wip:ti-to,tf,balance:ti-tf};
+}
+async function loadProductionRows(type,tbodyId,statusId){
+  const body=document.getElementById(tbodyId); body.innerHTML='<tr><td colspan="7">লোড হচ্ছে...</td></tr>';
+  const [{data:rows,error},{data:ekls},{data:lines}]=await Promise.all([
+    supabase.from('production_entries').select('id,entry_date,ekl_id,line_id,quantity,entry_type').eq('entry_type',type).order('entry_date',{ascending:false}).limit(150),
+    supabase.from('ekl_records').select('id,ekl,po,color'),
+    supabase.from('sewing_lines').select('id,line_name')
+  ]);
+  if(error){body.innerHTML='';setStatus(statusId,'ডাটাবেস ত্রুটি: '+error.message,'#c62828');return;}
+  const em=new Map((ekls||[]).map(x=>[String(x.id),x])), lm=new Map((lines||[]).map(x=>[String(x.id),x.line_name]));
+  if(!rows?.length){body.innerHTML='<tr><td colspan="7">কোনো রেকর্ড নেই।</td></tr>';return;}
+  body.innerHTML='';
+  rows.forEach(r=>{
+    const e=em.get(String(r.ekl_id))||{};
+    const tr=document.createElement('tr');
+    [r.entry_date,e.ekl,e.po,e.color,lm.get(String(r.line_id)),r.quantity].forEach(v=>{const td=document.createElement('td');td.textContent=v??'';tr.appendChild(td);});
+    const td=document.createElement('td');
+    const edit=document.createElement('button');edit.className='smallBtn';edit.textContent='Edit';edit.onclick=()=>{outputRowId.value=r.id;outputDate.value=r.entry_date;outputEkl.value=r.ekl_id;outputLine.value=r.line_id;outputQty.value=r.quantity;outputSave.textContent='পরিবর্তন সংরক্ষণ করুন';outputForm.scrollIntoView({behavior:'smooth'});};td.appendChild(edit);
+    if(currentRole==='admin'){
+      const b=document.createElement('button');b.className='smallBtn secondary';b.textContent='Delete';
+      b.onclick=async()=>{if(!confirm('এই এন্ট্রি মুছবেন?'))return;const {error}=await supabase.from('production_entries').delete().eq('id',r.id);if(error)setStatus(statusId,error.message,'#c62828');else await loadProductionRows(type,tbodyId,statusId);};
+      td.appendChild(b);
+    }
+    tr.appendChild(td);body.appendChild(tr);
+  });
+  setStatus(statusId,`সর্বশেষ ${rows.length}টি ${type==='Output'?'আউটপুট':'ইনপুট'} এন্ট্রি দেখানো হচ্ছে।`);
+}
+document.getElementById('openOutput').onclick=async()=>{
+  showPanel('outputPanel');
+  try{await getOptions('outputEkl','outputLine');await loadProductionRows('Output','outputRows','outputStatus');}catch(e){setStatus('outputStatus',e.message,'#c62828');}
+};
+document.getElementById('outputDate').value=todayLocal();
+document.getElementById('outputForm').onsubmit=async ev=>{
+  ev.preventDefault();
+  const r={entry_date:outputDate.value,ekl_id:Number(outputEkl.value),line_id:Number(outputLine.value),entry_type:'Output',quantity:Number(outputQty.value)};
+  if(!r.entry_date||!r.ekl_id||!r.line_id||!Number.isInteger(r.quantity)||r.quantity<1){setStatus('outputStatus','সব তথ্য সঠিকভাবে পূরণ করুন.','#c62828');return;}
+  outputSave.disabled=true;
+  const rowId=outputRowId.value;const result=rowId?await supabase.from('production_entries').update(r).eq('id',rowId):await supabase.from('production_entries').insert(r);const {error}=result;outputSave.disabled=false;
+  if(error){setStatus('outputStatus','সংরক্ষণ হয়নি: '+error.message,'#c62828');return;}
+  outputQty.value='';outputRowId.value='';outputSave.textContent='আউটপুট সংরক্ষণ করুন';setStatus('outputStatus',rowId?'আউটপুট আপডেট হয়েছে।':'আউটপুট Supabase-এ সংরক্ষিত হয়েছে।','#167044');
+  await loadProductionRows('Output','outputRows','outputStatus');await showSnapshot();
+};
+async function showSnapshot(){
+  if(!outputEkl.value||!outputLine.value)return;
+  try{const t=await totals(Number(outputEkl.value),Number(outputLine.value));document.getElementById('outputSnapshot').textContent=`Total Input: ${t.ti} | Total Output: ${t.to} | WIP: ${t.wip}`;}catch(e){setStatus('outputStatus',e.message,'#c62828');}
+}
+outputEkl.addEventListener('change',showSnapshot);outputLine.addEventListener('change',showSnapshot);
+
+document.getElementById('openFinishing').onclick=async()=>{
+  showPanel('finishingPanel');
+  try{await getOptions('finEkl','finLine');await loadFinishingRows();}catch(e){setStatus('finStatus',e.message,'#c62828');}
+};
+document.getElementById('finDate').value=todayLocal();
+async function loadFinishingRows(){
+  const body=finRows;body.innerHTML='<tr><td colspan="7">লোড হচ্ছে...</td></tr>';
+  const [{data:rows,error},{data:ekls},{data:lines}]=await Promise.all([
+    supabase.from('finishing_received').select('id,received_date,ekl_id,line_id,quantity').order('received_date',{ascending:false}).limit(150),
+    supabase.from('ekl_records').select('id,ekl,po,color'),supabase.from('sewing_lines').select('id,line_name')
+  ]);
+  if(error){setStatus('finStatus',error.message,'#c62828');return;}
+  const em=new Map((ekls||[]).map(x=>[String(x.id),x])),lm=new Map((lines||[]).map(x=>[String(x.id),x.line_name]));
+  if(!rows?.length){body.innerHTML='<tr><td colspan="7">কোনো রেকর্ড নেই।</td></tr>';return;}
+  body.innerHTML='';
+  rows.forEach(r=>{const e=em.get(String(r.ekl_id))||{},tr=document.createElement('tr');
+    [r.received_date,e.ekl,e.po,e.color,lm.get(String(r.line_id)),r.quantity].forEach(v=>{const td=document.createElement('td');td.textContent=v??'';tr.appendChild(td);});
+    const td=document.createElement('td');const edit=document.createElement('button');edit.className='smallBtn';edit.textContent='Edit';edit.onclick=()=>{finRowId.value=r.id;finDate.value=r.received_date;finEkl.value=r.ekl_id;finLine.value=r.line_id;finQty.value=r.quantity;finSave.textContent='পরিবর্তন সংরক্ষণ করুন';finishingForm.scrollIntoView({behavior:'smooth'});};td.appendChild(edit);if(currentRole==='admin'){const b=document.createElement('button');b.className='smallBtn secondary';b.textContent='Delete';b.onclick=async()=>{if(!confirm('এই রেকর্ড মুছবেন?'))return;const {error}=await supabase.from('finishing_received').delete().eq('id',r.id);if(error)setStatus('finStatus',error.message,'#c62828');else loadFinishingRows();};td.appendChild(b);}tr.appendChild(td);body.appendChild(tr);
+  });setStatus('finStatus',`সর্বশেষ ${rows.length}টি ফিনিশিং রিসিভ রেকর্ড।`);
+}
+finishingForm.onsubmit=async ev=>{
+  ev.preventDefault();const r={received_date:finDate.value,ekl_id:Number(finEkl.value),line_id:Number(finLine.value),quantity:Number(finQty.value)};
+  if(!r.received_date||!r.ekl_id||!r.line_id||!Number.isInteger(r.quantity)||r.quantity<1){setStatus('finStatus','সব তথ্য সঠিকভাবে পূরণ করুন।','#c62828');return;}
+  finSave.disabled=true;const rowId=finRowId.value;const result=rowId?await supabase.from('finishing_received').update(r).eq('id',rowId):await supabase.from('finishing_received').insert(r);const {error}=result;finSave.disabled=false;
+  if(error){setStatus('finStatus','সংরক্ষণ হয়নি: '+error.message,'#c62828');return;}
+  finQty.value='';finRowId.value='';finSave.textContent='ফিনিশিং রিসিভ সংরক্ষণ করুন';setStatus('finStatus',rowId?'ফিনিশিং রেকর্ড আপডেট হয়েছে।':'ফিনিশিং রিসিভ সংরক্ষিত হয়েছে।','#167044');await loadFinishingRows();
+};
+
+document.getElementById('openWip').onclick=async()=>{
+  showPanel('wipPanel');
+  try{await getOptions('wipEkl','wipLine',true);await loadWip();}catch(e){setStatus('wipStatus',e.message,'#c62828');}
+};
+document.getElementById('refreshWip').onclick=loadWip;
+async function loadWip(){
+  const body=wipRows;body.innerHTML='<tr><td colspan="9">লোড হচ্ছে...</td></tr>';
+  const [{data:ekls,error:e1},{data:lines,error:e2},{data:p,error:e3},{data:f,error:e4}]=await Promise.all([
+    supabase.from('ekl_records').select('id,ekl,po,color'),supabase.from('sewing_lines').select('id,line_name'),
+    supabase.from('production_entries').select('ekl_id,line_id,entry_type,quantity'),
+    supabase.from('finishing_received').select('ekl_id,line_id,quantity')
+  ]);
+  if(e1||e2||e3||e4){setStatus('wipStatus','রিপোর্ট ত্রুটি: '+(e1?.message||e2?.message||e3?.message||e4?.message),'#c62828');return;}
+  const em=new Map((ekls||[]).map(x=>[String(x.id),x])),lm=new Map((lines||[]).map(x=>[String(x.id),x.line_name]));
+  const keys=new Set([...(p||[]),...(f||[])].map(x=>`${x.ekl_id}|${x.line_id}`));
+  body.innerHTML='';let count=0;
+  for(const key of keys){const [ei,li]=key.split('|');if(wipEkl.value&&wipEkl.value!==ei)continue;if(wipLine.value&&wipLine.value!==li)continue;
+    const e=em.get(ei)||{};const ti=(p||[]).filter(x=>String(x.ekl_id)===ei&&String(x.line_id)===li&&x.entry_type==='Input').reduce((a,x)=>a+Number(x.quantity),0);
+    const to=(p||[]).filter(x=>String(x.ekl_id)===ei&&String(x.line_id)===li&&x.entry_type==='Output').reduce((a,x)=>a+Number(x.quantity),0);
+    const tf=(f||[]).filter(x=>String(x.ekl_id)===ei&&String(x.line_id)===li).reduce((a,x)=>a+Number(x.quantity),0);
+    const tr=document.createElement('tr');[e.ekl,e.po,e.color,lm.get(li),ti,to,ti-to,tf,ti-tf].forEach(v=>{const td=document.createElement('td');td.textContent=v??'';tr.appendChild(td);});body.appendChild(tr);count++;
+  }
+  if(!count)body.innerHTML='<tr><td colspan="9">কোনো তথ্য নেই।</td></tr>';
+  setStatus('wipStatus',`মোট ${count}টি EKL + Line রেকর্ড। WIP = Total Input − Total Output; Received Balance = Total Input − Total Finishing Received।`);
+}
+document.getElementById('openReports').onclick=async()=>{
+  showPanel('reportsPanel');
+  try{await getOptions('reportEkl','reportLine',true);await runReports();}catch(e){setStatus('reportStatus',e.message,'#c62828');}
+};
+document.getElementById('runReport').onclick=runReports;
+let lastReport=[];
+async function runReports(){
+  const [{data:p,error:pe},{data:f,error:fe},{data:ekls},{data:lines}]=await Promise.all([
+    supabase.from('production_entries').select('entry_date,ekl_id,line_id,quantity,entry_type'),
+    supabase.from('finishing_received').select('received_date,ekl_id,line_id,quantity'),
+    supabase.from('ekl_records').select('id,ekl,po,color'),supabase.from('sewing_lines').select('id,line_name')
+  ]);
+  if(pe||fe){setStatus('reportStatus','রিপোর্ট ত্রুটি: '+(pe?.message||fe?.message),'#c62828');return;}
+  const em=new Map((ekls||[]).map(x=>[String(x.id),x])),lm=new Map((lines||[]).map(x=>[String(x.id),x.line_name]));
+  const all=[...(p||[]).map(x=>({...x,date:x.entry_date,type:x.entry_type})),...(f||[]).map(x=>({...x,date:x.received_date,type:'Finishing Received'}))];
+  lastReport=all.filter(r=>{
+    const e=em.get(String(r.ekl_id))||{};
+    return (!reportFrom.value||r.date>=reportFrom.value)&&(!reportTo.value||r.date<=reportTo.value)&&(!reportEkl.value||String(r.ekl_id)===reportEkl.value)&&(!reportLine.value||String(r.line_id)===reportLine.value)&&(!reportPo.value||String(e.po||'').toLowerCase().includes(reportPo.value.toLowerCase()))&&(!reportColor.value||String(e.color||'').toLowerCase().includes(reportColor.value.toLowerCase()));
+  }).map(r=>{const e=em.get(String(r.ekl_id))||{};return {Date:r.date,Type:r.type,EKL:e.ekl||'',PO:e.po||'',Color:e.color||'',Line:lm.get(String(r.line_id))||'',Quantity:r.quantity};}).sort((a,b)=>b.Date.localeCompare(a.Date));
+  reportRows.innerHTML='';
+  if(!lastReport.length)reportRows.innerHTML='<tr><td colspan="7">কোনো তথ্য পাওয়া যায়নি।</td></tr>';
+  lastReport.forEach(r=>{const tr=document.createElement('tr');Object.values(r).forEach(v=>{const td=document.createElement('td');td.textContent=v;tr.appendChild(td);});reportRows.appendChild(tr);});
+  setStatus('reportStatus',`মোট ${lastReport.length}টি রেকর্ড। Date, EKL, PO, Colour ও Line অনুযায়ী ফিল্টার করা হয়েছে।`);
+}
+document.getElementById('exportReport').onclick=()=>{
+  if(!lastReport.length){setStatus('reportStatus','ডাউনলোডের জন্য আগে রিপোর্ট তৈরি করুন।','#a15c00');return;}
+  const headers=Object.keys(lastReport[0]);const csv=[headers,...lastReport.map(r=>headers.map(h=>r[h]))].map(row=>row.map(v=>'"'+String(v??'').replace(/"/g,'""')+'"').join(',')).join('\r\n');
+  const blob=new Blob(['\ufeff'+csv],{type:'text/csv;charset=utf-8;'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='SOHEL_GARMENTS_ERP_Report.csv';a.click();URL.revokeObjectURL(a.href);
+};
+document.getElementById('openLineInput').onclick=async()=>{showPanel('lineInputPanel');lineInputDate.value=todayLocal();await loadLineInput();};
+document.getElementById('runLineInput').onclick=loadLineInput;
+async function loadLineInput(){
+  const [{data:p,error},{data:ekls},{data:lines}]=await Promise.all([
+    supabase.from('production_entries').select('entry_date,ekl_id,line_id,quantity,entry_type').eq('entry_type','Input'),
+    supabase.from('ekl_records').select('id,ekl,po,color'),supabase.from('sewing_lines').select('id,line_name')
+  ]);
+  if(error){setStatus('lineInputStatus',error.message,'#c62828');return;}
+  const em=new Map((ekls||[]).map(x=>[String(x.id),x])),lm=new Map((lines||[]).map(x=>[String(x.id),x.line_name]));
+  const daily=new Map(),total=new Map();
+  (p||[]).forEach(r=>{const k=`${r.ekl_id}|${r.line_id}`;total.set(k,(total.get(k)||0)+Number(r.quantity));if(r.entry_date===lineInputDate.value)daily.set(k,(daily.get(k)||0)+Number(r.quantity));});
+  lineInputRows.innerHTML='';let n=0;
+  for(const [k,q] of daily){const [ei,li]=k.split('|'),e=em.get(ei)||{},tr=document.createElement('tr');[lm.get(li),e.ekl,e.po,e.color,q,total.get(k)].forEach(v=>{const td=document.createElement('td');td.textContent=v??'';tr.appendChild(td);});lineInputRows.appendChild(tr);n++;}
+  if(!n)lineInputRows.innerHTML='<tr><td colspan="6">এই তারিখে কোনো ইনপুট নেই।</td></tr>';
+  setStatus('lineInputStatus',`নির্বাচিত তারিখে ${n}টি EKL + Line সারাংশ।`);
+}
+document.getElementById('openUsers').onclick=async()=>{
+  if(currentRole!=='admin'){showPanel('usersPanel');setStatus('usersStatus','শুধু Admin এই অংশ দেখতে পারবেন।','#c62828');return;}
+  showPanel('usersPanel');const {data,error}=await supabase.from('profiles').select('id,full_name,role').order('full_name');
+  if(error){setStatus('usersStatus',error.message,'#c62828');return;}
+  userRows.innerHTML='';(data||[]).forEach(u=>{const tr=document.createElement('tr');[u.full_name||'নাম নেই',u.role,u.id].forEach(v=>{const td=document.createElement('td');td.textContent=v??'';tr.appendChild(td);});userRows.appendChild(tr);});
+  setStatus('usersStatus',`মোট ${data?.length||0}টি প্রোফাইল। নতুন Auth user Supabase Authentication থেকে তৈরি করতে হবে।`);
+};
+
+form.addEventListener('submit', async (event) => {
+  event.preventDefault();
+  loginButton.disabled = true;
+  loginButton.textContent = 'লগইন হচ্ছে...';
+  loginMessage.textContent = '';
+  const email = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value;
+  const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+  if (error) {
+    loginMessage.textContent = 'লগইন হয়নি: ইমেইল অথবা পাসওয়ার্ড যাচাই করুন।';
+    loginMessage.style.color = '#c62828';
+    loginButton.disabled = false;
+    loginButton.textContent = 'লগইন করুন';
+    return;
+  }
+  const { data: profile, error: profileError } = await supabase
+    .from('profiles').select('full_name, role').eq('id', data.user.id).maybeSingle();
+  if (profileError || !profile) {
+    loginMessage.textContent = 'লগইন হয়েছে, কিন্তু profiles টেবিলে ব্যবহারকারীর তথ্য পাওয়া যায়নি।';
+    loginMessage.style.color = '#c62828';
+    loginButton.disabled = false;
+    loginButton.textContent = 'লগইন করুন';
+    return;
+  }
+  currentRole = (profile.role || 'user').toLowerCase();
+  document.getElementById('loginView').style.display = 'none';
+  document.getElementById('dashboardView').style.display = 'block';
+  document.getElementById('welcomeText').textContent =
+    `স্বাগতম ${profile.full_name || 'ব্যবহারকারী'} (${currentRole})`;
+  document.getElementById('adminNote').style.display = currentRole === 'admin' ? 'block' : 'none';
+  startLiveDashboard();
+});
+</script></body></html>
